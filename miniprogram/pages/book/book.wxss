@@ -1,0 +1,72 @@
+/* pages/book/book.wxss */
+.header{
+  text-align: center;
+  margin-top: 10rpx;
+}
+.currentDate{
+  border: 1rpx solid black;
+  width: 200rpx;
+  margin: auto;
+  border-radius: 20rpx;
+}
+.bookBody{
+  font-weight: bold;
+  border: 1rpx solid black;
+  padding: 10rpx;
+  margin-top: 20rpx;
+}
+
+.bookSite{
+  border: 1rpx solid black;
+  border-radius: 30rpx;
+  padding: 15rpx;
+  line-height: 30rpx;
+}
+.icon{
+  display: inline-block;
+  margin: 0 10rpx;
+}
+.choseBtn{
+  float: right;
+}
+.siteFont{
+  font-size: 30rpx;
+}
+.select{
+  display: block;
+  margin: 0 auto;
+  margin-top: 10rpx;
+  text-align: center;
+  
+}
+.select ul{
+  height: 0;
+  
+  overflow: hidden;
+}
+.select ul li {
+  padding-left: 0.5rem;
+  display: block;
+  line-height: 2rem;
+  text-align: left;
+  height: 0;
+  transition: all .2s linear;
+  position: relative;
+  overflow: hidden;
+  border: none;
+}
+.myBtn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+}
+.selected ul li {
+  height: 60rpx;
+  border:1px solid black;
+  margin:10rpx;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

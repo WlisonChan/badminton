@@ -1,0 +1,26 @@
+<l-tab-bar list="{{list}}" />
+<l-calendar formatter="{{ formatter }}" bind:linselect="linselect" show="{{showCalendar}}"></l-calendar>
+
+<view class="header">
+  <view class="currentDate" bindtap="selectDate"> {{ currentDate }}</view>
+</view>
+<view class="bookBody"> 
+  <view wx:for="{{dataSite}}" wx:key="key" >
+    <view class="bookSite" bindtap="select" data-index="{{index}}">
+      <l-icon class="icon" name="order" size="30"/>
+      <text class="siteFont">{{item.name}}</text>
+      <l-icon class="icon choseBtn" name="{{dataSite[index].show?'down':'right'}}" size="30"/>
+    </view>
+    <view class="select {{dataSite[index].show?'selected':''}}">
+      <ul>
+        <li wx:for="{{item.book}}" wx:for-index="subIndex"  wx:for-item="subItem" wx:key="subIndex">
+          <l-icon class="icon" name="time" size="30"/>
+          <text>{{subItem.time}}</text>
+          <l-button class="myBtn {{subItem.isBook?'disabled':''}}" 
+          type="{{subItem.isBook?'error':'success'}}" 
+          width="100" height="60">{{subItem.isBook?'已满':'预约'}}</l-button>
+        </li>
+      </ul>
+    </view>
+  </view>
+</view>
