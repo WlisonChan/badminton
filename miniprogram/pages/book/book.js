@@ -216,6 +216,12 @@ Page({
     this.setData({
       currentDate: year + '-' + month + '-' + day
     })
+  },
+  onShareAppMessage: function (res) {
+    return {
+      title: '羽毛球场地预订',
+      path: 'pages/book/book'
+    }
   }
 
 })
