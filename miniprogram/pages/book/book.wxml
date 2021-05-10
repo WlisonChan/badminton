@@ -1,6 +1,5 @@
 
-<l-tab-bar list="{{list}}" />
-<l-calendar formatter="{{ formatter }}" bind:linselect="linselect" show="{{showCalendar}}"></l-calendar>
+<l-calendar bind:linselect="linselect" show="{{showCalendar}}" show-confirm="false" />
 <l-message />
 <l-dialog 
   show="{{dialog.show}}"
@@ -21,28 +20,31 @@
     <l-icon class="icon" name="right" size="30"  bindtap="selectDate"/>
     </view>
 </view>
+<view class="line"></view>
 <view >
-  <l-grid>
+  <l-grid show-border="{{true}}">
     <l-grid-item key="one" slot="one">
-        <view class="num">{{ballMsg.siteNum}}</view>
+        <view class="num1">{{ballMsg.siteNum}}</view>
         <view class="text">场地数</view>
      </l-grid-item>
     <l-grid-item key="two" slot="two">
-        <view class="num">{{ballMsg.booked}}</view>
+        <view class="num2">{{ballMsg.booked}}</view>
         <view class="text">已满</view>
     </l-grid-item>
     <l-grid-item key="three" slot="three">
-        <view class="num">{{ballMsg.canBeBooked}}</view>
+        <view class="num3">{{ballMsg.canBeBooked}}</view>
         <view class="text">可预约</view>
     </l-grid-item>
 </l-grid>
 </view>
-
-<view class="bookBody"> 
+<view class="line"></view>
+<view class="bookBody">
+  <view class="title"><text>场地预订：</text></view>
   <view wx:for="{{dataSite}}" wx:key="key" >
     <view class="bookSite" bindtap="select" data-index="{{index}}">
       <l-icon class="icon" name="order" size="30"/>
-      <text class="siteFont">{{item.name}}</text>
+      <text class="siteFont">{{item.name}} </text>
+      <l-tag class="tag" plain="{{true}}" font-color="#ff3366" wx:if="{{item.isFull}}">已满</l-tag>
       <l-icon class="icon choseBtn" name="{{dataSite[index].show?'down':'right'}}" size="30"/>
     </view>
     <view class="select {{dataSite[index].show?'selected':''}}">

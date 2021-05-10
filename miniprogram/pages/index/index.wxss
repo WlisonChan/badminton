@@ -8,6 +8,7 @@
 .list{
   margin-top: 20rpx;
   padding: 0 30rpx;
+  background: white;
 }
 .detailHistory li,.detail li{
   display: block;

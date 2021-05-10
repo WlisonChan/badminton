@@ -47,9 +47,7 @@ Page({
         time:'2021-05-15 9:00~9:30 PM',
         cancel:false
       }
-    ],
-    canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') // 如需尝试获取用户信息可改为false
+    ]
   },
 
   onLoad: function() {

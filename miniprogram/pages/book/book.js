@@ -24,6 +24,7 @@ Page({
     dataSite: [{
         name: '1号场地',
         show: true,
+        isFull:false,
         book: [{
             time: '8:30~9:00 PM',
             isBook: false
@@ -45,6 +46,7 @@ Page({
       {
         name: '2号场地',
         show: false,
+        isFull:false,
         book: [{
             time: '8:30~9:00 PM',
             isBook: true
@@ -66,6 +68,7 @@ Page({
       {
         name: '3号场地',
         show: false,
+        isFull:true,
         book: [{
             time: '8:30~9:00 PM',
             isBook: false
@@ -87,6 +90,7 @@ Page({
       {
         name: '4号场地',
         show: false,
+        isFull:false,
         book: [{
             time: '8:30~9:00 PM',
             isBook: true
@@ -110,6 +114,10 @@ Page({
   onLoad: function (options) {
     this.formatDate(new Date())
     this.getBallMsg()
+    let len = this.data.dataSite.length
+    for(let i=0;i<len;i++){
+      this.refreshFull(i)
+    }
   },
   linselect(e) {
     this.formatDate(e.detail)
@@ -151,6 +159,7 @@ Page({
     })
     this.getBallMsg()
     this.reSetDialog()
+    this.refreshFull(index)
   },
   reSetDialog() {
     this.setData({
@@ -177,6 +186,22 @@ Page({
       [`ballMsg.booked`]:booked,
       [`ballMsg.canBeBooked`]:sum-booked
     })
+  },
+  refreshFull(index){
+    let change = true
+    let data = this.data.dataSite[index].book
+    for(let i=0;i<data.length;i++){
+      change = change && data[i].isBook
+    }
+    if(change){
+      this.setData({
+        [`dataSite[`+index+`].isFull`]:true
+      })
+    }else{
+      this.setData({
+        [`dataSite[`+index+`].isFull`]:false
+      })
+    }
   },
   formatDate(date) {
     let year = date.getYear() + 1900
