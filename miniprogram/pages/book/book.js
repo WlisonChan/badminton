@@ -5,68 +5,103 @@ Page({
    * 页面的初始数据
    */
   data: {
-    showCalendar:false,
-    currentDate:'2021-05-09',
-    curShow:{
-      show:true
+    ballMsg:{
+      siteNum:0,
+      booked:0,
+      canBeBooked:0
     },
-    list:[
-      
-      {
-        pagePath:"/pages/book/book",
-        text:"场地预定",
-        iconPath:"/images/icon/book.png",
-        selectedIconPath:"/images/icon/book_selected.png"
-      },
-      {
-          pagePath:"/pages/index/index",
-          text:"个人预定",
-          iconPath:"/images/icon/personal.png",
-          selectedIconPath:"/images/icon/personal_selected.png"
-      }
-    ],
-    dataSite:[
-      {
-        name:'1号场地',
-        show:true,
-        book:[
-          {
-            time:'8:30~9:00 PM',
-            isBook:false
+    showCalendar: false,
+    currentDate: '2021-05-09',
+    dialog: {
+      show: false,
+      index: '-1',
+      subIndex: '-1',
+      time: ''
+    },
+    curShow: {
+      show: true
+    },
+    dataSite: [{
+        name: '1号场地',
+        show: true,
+        book: [{
+            time: '8:30~9:00 PM',
+            isBook: false
           },
           {
-            time:'9:00~9:30 PM',
-            isBook:false
+            time: '9:00~9:30 PM',
+            isBook: false
           },
           {
-            time:'9:30~10:00 PM',
-            isBook:true
+            time: '9:30~10:00 PM',
+            isBook: true
           },
           {
-            time:'10:00~10:30 PM',
-            isBook:true
+            time: '10:00~10:30 PM',
+            isBook: true
           }
         ]
       },
       {
-        name:'2号场地',
-        show:false,
-        book:[
-          {
-            time:'8:30~9:00 PM',
-            isBook:true
+        name: '2号场地',
+        show: false,
+        book: [{
+            time: '8:30~9:00 PM',
+            isBook: true
           },
           {
-            time:'9:00~9:30 PM',
-            isBook:false
+            time: '9:00~9:30 PM',
+            isBook: false
           },
           {
-            time:'9:30~10:00 PM',
-            isBook:true
+            time: '9:30~10:00 PM',
+            isBook: true
           },
           {
-            time:'10:00~10:30 PM',
-            isBook:false
+            time: '10:00~10:30 PM',
+            isBook: false
+          }
+        ]
+      },
+      {
+        name: '3号场地',
+        show: false,
+        book: [{
+            time: '8:30~9:00 PM',
+            isBook: false
+          },
+          {
+            time: '9:00~9:30 PM',
+            isBook: false
+          },
+          {
+            time: '9:30~10:00 PM',
+            isBook: false
+          },
+          {
+            time: '10:00~10:30 PM',
+            isBook: false
+          }
+        ]
+      },
+      {
+        name: '4号场地',
+        show: false,
+        book: [{
+            time: '8:30~9:00 PM',
+            isBook: true
+          },
+          {
+            time: '9:00~9:30 PM',
+            isBook: true
+          },
+          {
+            time: '9:30~10:00 PM',
+            isBook: true
+          },
+          {
+            time: '10:00~10:30 PM',
+            isBook: true
           }
         ]
       }
@@ -74,40 +109,88 @@ Page({
   },
   onLoad: function (options) {
     this.formatDate(new Date())
+    this.getBallMsg()
   },
-  linselect(e){
-    console.log(e.detail)
+  linselect(e) {
     this.formatDate(e.detail)
     this.setData({
-      showCalendar:!this.data.showCalendar
+      showCalendar: !this.data.showCalendar
     })
   },
-  select(e){
+  select(e) {
     let index = e.currentTarget.dataset.index
-    console.log(this.data.dataSite[index].show)
 
     this.setData({
-      [`dataSite[`+index+`].show`]: !this.data.dataSite[index].show
+      [`dataSite[` + index + `].show`]: !this.data.dataSite[index].show
     })
   },
-  selectDate(){
+  selectDate() {
     this.setData({
-      showCalendar:!this.data.showCalendar
+      showCalendar: !this.data.showCalendar
     })
-  }
-  ,
-  formatDate(date){
-    let year = date.getYear()+1900
-    let month = date.getMonth() +1
-    if(month<10){
-      month = '0'+month
+  },
+  showDialog(e) {
+    this.setData({
+      [`dialog.show`]: !this.data.dialog.show,
+      [`dialog.index`]: e.currentTarget.dataset.index,
+      [`dialog.subIndex`]: e.currentTarget.dataset.subindex,
+      [`dialog.time`]: e.currentTarget.dataset.date
+    })
+  },
+  book() {
+    //预订逻辑
+    let index = this.data.dialog.index
+    let subIndex = this.data.dialog.subIndex
+
+    this.setData({
+      [`dataSite[` + index + `].book[` + subIndex + `].isBook`]: !this.data.dataSite[index].book[subIndex].isBook
+    })
+    wx.lin.showMessage({
+      content: '预订成功',
+      type:'success'
+    })
+    this.getBallMsg()
+    this.reSetDialog()
+  },
+  reSetDialog() {
+    this.setData({
+      [`dialog.show`]: false,
+      [`dialog.index`]: -1,
+      [`dialog.subIndex`]: -1,
+      [`dialog.time`]: ''
+    })
+  },
+  getBallMsg(){
+    let tempData = this.data.dataSite
+    let sum = 0
+    let booked = 0
+    tempData.forEach(e=>{
+      e.book.forEach(f=>{
+        if(f.isBook){
+          booked++
+        }
+        sum++
+      })
+    })
+    this.setData({
+      [`ballMsg.siteNum`]:tempData.length,
+      [`ballMsg.booked`]:booked,
+      [`ballMsg.canBeBooked`]:sum-booked
+    })
+  },
+  formatDate(date) {
+    let year = date.getYear() + 1900
+    let month = date.getMonth() + 1
+    if (month < 10) {
+      month = '0' + month
     }
     let day = date.getDate()
-    if(day<10){
-      day = '0'+day
+    if (day < 10) {
+      day = '0' + day
     }
     this.setData({
-      currentDate:year+'-'+month+'-'+day
+      currentDate: year + '-' + month + '-' + day
     })
   }
+
 })

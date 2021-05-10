@@ -1,1 +1,56 @@
-<l-tab-bar list="{{list}}" />
+<l-message />
+<l-dialog show="{{dialog.show}}" type="confirm" title="取消预订" content="是否取消预订{{dialog.time}}的场次" confirm-text="确定取消"
+  confirm-color="#f60" cancel-text="放弃取消" cancel-color="#999" bind:linconfirm="cancelConfirm" bind:lincancel="reSetDialog" />
+
+<view class="header">
+  <view>
+    <l-avatar open-data="{{['userAvatarUrl','userNickName']}}"/>
+  </view>
+  <view>
+    <!-- <l-button open-type="getUserInfo" width="300">登录</l-button> -->
+    <view class="userInfoBox">
+      <view class="userInfo"> 
+        <view><text decode="{{true}}">学院：计算机学院</text></view>
+        <view><text decode="{{true}}">&nbsp;学号：184712060</text></view>
+      </view>
+    </view>
+  </view>
+</view>
+<view>
+  <view class="title">预订信息:</view>
+  <view class="list">
+    <l-collapse type='accordion' expand-item-id="1">
+      <view class="line"></view>
+      <l-collapse-item title="历史场地预订" item-id="0">
+        <view class="line"></view>
+        <ul class="detailHistory">
+          <block wx:for="{{historyList}}" wx:key="key">
+            <li>
+            <text>{{item.site+' '+item.time}}</text>
+          </li>
+          </block>
+
+        </ul>
+      </l-collapse-item>
+      <view class="line"></view>
+      <l-collapse-item title="查看预约场地" item-id="1">
+        <view class="line"></view>
+        <ul class="detail">
+          <block wx:for="{{bookList}}" wx:key="index">
+            <li>
+              <text>{{item.site +' '+item.time}}</text>
+              <l-button class="cancel {{item.cancel?'disabled':''}}" 
+              type="{{item.cancel?'default':'error'}}" height="50" width="100" 
+              data-index="{{index}}"
+              data-site="{{item.site}}"
+              data-time="{{item.time}}"
+                bindtap="cancelBook">{{item.cancel?'已取消':'取消预订'}}</l-button>
+            </li>
+          </block>
+        </ul>
+      </l-collapse-item>
+      <view class="line"></view>
+    </l-collapse>
+  </view>
+
+</view>

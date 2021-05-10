@@ -1,29 +1,36 @@
 {
   "pages": [
-    "pages/book/book",
-    "pages/index/index"
+    
+    "pages/index/index",
+    "pages/book/book"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "场地预订",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
   "style": "v2",
   "tabBar": {
-    "custom": true,
     "color": "#000000",
-    "selectedColor": "#000000",
-    "backgroundColor": "#000000",
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "组件"
-    }, {
-      "pagePath": "pages/book/book",
-      "text": "接口"
-    }]
+    "selectedColor": "#99ccff",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath":"pages/book/book",
+        "iconPath":"/images/icon/book.png",
+        "selectedIconPath":"/images/icon/book_selected.png",
+        "text":"场地预定"
+      },
+      {
+          "pagePath":"pages/index/index",
+          "text":"个人预定",
+          "iconPath":"/images/icon/personal.png",
+          "selectedIconPath":"/images/icon/personal_selected.png"
+      }
+  ]
   },
   "usingComponents": {}
 }

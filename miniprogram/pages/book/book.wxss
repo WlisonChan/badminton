@@ -2,25 +2,41 @@
 .header{
   text-align: center;
   margin-top: 10rpx;
+  background: #99ccff;
+  height: 80rpx;
+}
+.num{
+  font-style: italic;
+  font-weight: bold;
+  color: orange;
+}
+.text{
+  font-weight: bold;
+}
+.dateBox{
+  margin-top: 20rpx;
+  font-weight: bold;
 }
 .currentDate{
-  border: 1rpx solid black;
-  width: 200rpx;
+  border: 5rpx solid black;
+  padding: 5rpx 15rpx;
   margin: auto;
   border-radius: 20rpx;
+  background:#ffffff;
 }
 .bookBody{
   font-weight: bold;
-  border: 1rpx solid black;
   padding: 10rpx;
-  margin-top: 20rpx;
 }
 
 .bookSite{
-  border: 1rpx solid black;
+  border: 4rpx solid rgba(0,0,0,0.5);
   border-radius: 30rpx;
   padding: 15rpx;
   line-height: 30rpx;
+  box-shadow: 4rpx 3rpx 5rpx 0rpx rgba(0,0,0,0.35);
+  -webkit-box-shadow: 4rpx 3rpx 5rpx 0rpx rgba(0,0,0,0.35);
+  -moz-box-shadow: 4rpx 3rpx 5rpx 0rpx rgba(0,0,0,0.35);
 }
 .icon{
   display: inline-block;
@@ -63,10 +79,10 @@
 }
 .selected ul li {
   height: 60rpx;
-  border:1px solid black;
+  border:1px solid #bfbfbf;
   margin:10rpx;
 }
 .disabled {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.8;
 }

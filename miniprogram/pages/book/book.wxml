@@ -1,9 +1,43 @@
+
 <l-tab-bar list="{{list}}" />
 <l-calendar formatter="{{ formatter }}" bind:linselect="linselect" show="{{showCalendar}}"></l-calendar>
+<l-message />
+<l-dialog 
+  show="{{dialog.show}}"
+  type="confirm"  
+  title="场次预订"
+  content="是否预订{{dialog.time}}的场次"
+  confirm-text="预订"
+  confirm-color="#f60"
+  cancel-text="取消预订"
+  cancel-color="#999" 
+  bind:linconfirm="book"
+  bind:lincancel="reSetDialog"/>
 
 <view class="header">
-  <view class="currentDate" bindtap="selectDate"> {{ currentDate }}</view>
+  <view class="dateBox">
+    <l-icon class="icon" name="left" size="30"  bindtap="selectDate" />
+    <text class="currentDate" bindtap="selectDate"> {{ currentDate }}</text>
+    <l-icon class="icon" name="right" size="30"  bindtap="selectDate"/>
+    </view>
 </view>
+<view >
+  <l-grid>
+    <l-grid-item key="one" slot="one">
+        <view class="num">{{ballMsg.siteNum}}</view>
+        <view class="text">场地数</view>
+     </l-grid-item>
+    <l-grid-item key="two" slot="two">
+        <view class="num">{{ballMsg.booked}}</view>
+        <view class="text">已满</view>
+    </l-grid-item>
+    <l-grid-item key="three" slot="three">
+        <view class="num">{{ballMsg.canBeBooked}}</view>
+        <view class="text">可预约</view>
+    </l-grid-item>
+</l-grid>
+</view>
+
 <view class="bookBody"> 
   <view wx:for="{{dataSite}}" wx:key="key" >
     <view class="bookSite" bindtap="select" data-index="{{index}}">
@@ -18,9 +52,11 @@
           <text>{{subItem.time}}</text>
           <l-button class="myBtn {{subItem.isBook?'disabled':''}}" 
           type="{{subItem.isBook?'error':'success'}}" 
-          width="100" height="60">{{subItem.isBook?'已满':'预约'}}</l-button>
+          width="100" height="60" data-date="{{subItem.time}}" data-index="{{index}}" data-subindex="{{subIndex}}"
+          bindtap="showDialog">{{subItem.isBook?'已满':'预约'}}</l-button>
         </li>
       </ul>
     </view>
   </view>
+
 </view>
